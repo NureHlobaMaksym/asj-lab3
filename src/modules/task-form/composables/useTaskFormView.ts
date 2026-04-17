@@ -1,4 +1,4 @@
-import { computed, reactive, watch } from 'vue';
+import { computed, reactive, watch, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useTaskStore } from '@/stores/task.store';
 import { Events } from '@/enums/events.enum';
@@ -14,6 +14,8 @@ export const useTaskFormView = () => {
   const route = useRoute();
   const router = useRouter();
   const taskStore = useTaskStore();
+
+  const isSubmitting = ref(false);
 
   const model = reactive<TaskFormModel>({
     title: '',
@@ -68,18 +70,17 @@ export const useTaskFormView = () => {
     if (!isEditMode.value || Number.isNaN(taskId.value)) {
       return undefined;
     }
-
     return taskStore.getTaskById(taskId.value);
   });
 
   watch(
-    editingTask,
-    (task: Task | undefined): void => {
-      if (task) {
-        fillFromTask(task);
-      }
-    },
-    { immediate: true }
+      editingTask,
+      (task: Task | undefined): void => {
+        if (task) {
+          fillFromTask(task);
+        }
+      },
+      { immediate: true }
   );
 
   const pageTitle = computed<string>(() => (isEditMode.value ? 'Редагування задачі' : 'Створення задачі'));
@@ -98,49 +99,36 @@ export const useTaskFormView = () => {
     }
   };
 
-  const onTitleUpdate = (value: string): void => {
-    model.title = value;
-  };
-
-  const onDescriptionUpdate = (value: string): void => {
-    model.description = value;
-  };
-
-  const onCategoryUpdate = (value: string): void => {
-    model.category = value;
-  };
-
-  const onDeadlineUpdate = (value: string): void => {
-    model.deadline = value;
-  };
-
-  const onCompletedUpdate = (value: boolean): void => {
-    model.completed = value;
-  };
+  const onTitleUpdate = (value: string): void => { model.title = value; };
+  const onDescriptionUpdate = (value: string): void => { model.description = value; };
+  const onCategoryUpdate = (value: string): void => { model.category = value; };
+  const onDeadlineUpdate = (value: string): void => { model.deadline = value; };
+  const onCompletedUpdate = (value: boolean): void => { model.completed = value; };
 
   const onSubmit = (): void => {
-    if (!validate()) {
+    if (isSubmitting.value || !validate()) {
       return;
     }
+
+    isSubmitting.value = true;
+    const taskData = { ...model };
 
     if (isEditMode.value) {
-      if (!editingTask.value) {
-        return;
+      if (editingTask.value) {
+        taskStore.updateTask(editingTask.value.id, taskData);
       }
-
-      taskStore.updateTask(editingTask.value.id, model);
-      router.push('/');
-      return;
+    } else {
+      taskStore.addTask(taskData);
     }
 
-    const newTaskId = taskStore.addTask(model);
-    router.push(`/tasks/${newTaskId}`);
+    router.push('/');
   };
 
   return {
     model,
     errors,
     isEditMode,
+    isSubmitting,
     editingTask,
     showNotFoundState,
     pageTitle,

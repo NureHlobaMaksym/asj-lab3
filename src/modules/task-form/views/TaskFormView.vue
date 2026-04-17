@@ -8,6 +8,7 @@ const {
   model,
   errors,
   isEditMode,
+  isSubmitting,
   showNotFoundState,
   pageTitle,
   submitLabel,
@@ -21,15 +22,15 @@ const {
   onCategoryUpdate,
   onPriorityUpdate,
   onDeadlineUpdate,
-  onCompletedUpdate,
-  events
+  onCompletedUpdate
 } = useTaskFormView();
-
 </script>
 
 <template>
   <section class="page-shell">
-    <button class="link-button" type="button" @click="navigateBack">{{ breadcrumbLabel }}</button>
+    <button class="link-button" type="button" @click="navigateBack">
+      {{ breadcrumbLabel }}
+    </button>
 
     <div v-if="showNotFoundState" class="empty-state">
       <h2>Задачу не знайдено</h2>
@@ -39,21 +40,22 @@ const {
     <div v-else>
       <h1 class="task-form-view__title">{{ pageTitle }}</h1>
       <TaskForm
-        :model="model"
-        :errors="errors"
-        :categories="categories"
-        :priorities="priorities"
-        :submit-label="submitLabel"
-        cancel-label="Скасувати"
-        :is-edit-mode="isEditMode"
-        @[events.SUBMIT]="onSubmit"
-        @[events.CANCEL]="navigateBack"
-        @[events.UPDATE_TITLE]="onTitleUpdate"
-        @[events.UPDATE_DESCRIPTION]="onDescriptionUpdate"
-        @[events.UPDATE_CATEGORY]="onCategoryUpdate"
-        @[events.UPDATE_PRIORITY]="onPriorityUpdate"
-        @[events.UPDATE_DEADLINE]="onDeadlineUpdate"
-        @[events.UPDATE_COMPLETED]="onCompletedUpdate"
+          :model="model"
+          :errors="errors"
+          :categories="categories"
+          :priorities="priorities"
+          :submit-label="submitLabel"
+          cancel-label="Скасувати"
+          :is-edit-mode="isEditMode"
+          :is-submitting="isSubmitting"
+          @submit="onSubmit"
+          @cancel="navigateBack"
+          @update:title="onTitleUpdate"
+          @update:description="onDescriptionUpdate"
+          @update:category="onCategoryUpdate"
+          @update:priority="onPriorityUpdate"
+          @update:deadline="onDeadlineUpdate"
+          @update:completed="onCompletedUpdate"
       />
     </div>
   </section>

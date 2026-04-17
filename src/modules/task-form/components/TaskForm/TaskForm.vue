@@ -23,25 +23,26 @@ const {
 </script>
 
 <template>
-  <form class="task-form" @submit.prevent="onSubmit">
+  <form class="task-form" @submit.prevent.stop="onSubmit">
     <label class="task-form__label">Назва задачі</label>
     <input
-      class="task-form__input"
-      :class="{ 'task-form__input--error': properties.errors.title.length > 0 }"
-      type="text"
-      :value="properties.model.title"
-      :maxlength="TITLE_MAX_LENGTH"
-      @input="onTitleInput"
+        class="task-form__input"
+        :class="{ 'task-form__input--error': properties.errors.title.length > 0 }"
+        type="text"
+        :value="properties.model.title"
+        :maxlength="TITLE_MAX_LENGTH"
+        placeholder="Введіть назву задачі"
+        @input="onTitleInput"
     />
     <p class="task-form__error">{{ properties.errors.title }}</p>
 
     <BaseTextArea
-      :model-value="properties.model.description"
-      label="Опис"
-      placeholder="Опишіть задачу"
-      :rows="4"
-      error=""
-      @[Events.UPDATE_MODEL_VALUE]="onDescriptionInput"
+        :model-value="properties.model.description"
+        label="Опис"
+        placeholder="Опишіть задачу"
+        :rows="4"
+        error=""
+        @update:model-value="onDescriptionInput"
     />
 
     <div class="task-form__grid task-form__grid--double">
@@ -68,12 +69,12 @@ const {
       <div>
         <label class="task-form__label">Дедлайн</label>
         <input
-          class="task-form__input"
-          :class="{ 'task-form__input--error': properties.errors.deadline.length > 0 }"
-          type="date"
-          :value="properties.model.deadline"
-          :min="today"
-          @input="onDeadlineChange"
+            class="task-form__input"
+            :class="{ 'task-form__input--error': properties.errors.deadline.length > 0 }"
+            type="date"
+            :value="properties.model.deadline"
+            :min="today"
+            @input="onDeadlineChange"
         />
         <p class="task-form__error">{{ properties.errors.deadline }}</p>
       </div>

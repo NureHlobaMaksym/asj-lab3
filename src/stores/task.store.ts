@@ -22,7 +22,6 @@ export const useTaskStore = defineStore('taskStore', {
     completedTasks: (state): Task[] => state.tasks.filter((task: Task): boolean => task.completed),
     overdueTasks: (state): Task[] => {
       const today = getTodayTimestamp();
-
       return state.tasks.filter((task: Task): boolean => {
         return !task.completed && parseDate(task.deadline) < today;
       });
@@ -37,34 +36,25 @@ export const useTaskStore = defineStore('taskStore', {
     upcomingDeadlines: (state): Task[] => {
       const today = getTodayTimestamp();
       const inTwoDays = today + 2 * 24 * 60 * 60 * 1000;
-
       return state.tasks
-        .filter((task: Task): boolean => {
-          const deadline = parseDate(task.deadline);
-          return !task.completed && deadline >= today && deadline <= inTwoDays;
-        })
-        .sort((left: Task, right: Task): number => parseDate(left.deadline) - parseDate(right.deadline));
+          .filter((task: Task): boolean => {
+            const deadline = parseDate(task.deadline);
+            return !task.completed && deadline >= today && deadline <= inTwoDays;
+          })
+          .sort((left: Task, right: Task): number => parseDate(left.deadline) - parseDate(right.deadline));
     },
     nearestDeadlines: (state): Task[] => {
       return state.tasks
-        .filter((task: Task): boolean => !task.completed)
-        .sort((left: Task, right: Task): number => parseDate(left.deadline) - parseDate(right.deadline))
-        .slice(0, 3);
+          .filter((task: Task): boolean => !task.completed)
+          .sort((left: Task, right: Task): number => parseDate(left.deadline) - parseDate(right.deadline))
+          .slice(0, 3);
     },
     totalTasks: (state): number => state.tasks.length,
-    activeCount(): number {
-      return this.activeTasks.length;
-    },
-    completedCount(): number {
-      return this.completedTasks.length;
-    },
-    overdueCount(): number {
-      return this.overdueTasks.length;
-    },
+    activeCount(): number { return this.activeTasks.length; },
+    completedCount(): number { return this.completedTasks.length; },
+    overdueCount(): number { return this.overdueTasks.length; },
     completionProgress(): number {
-      if (this.totalTasks === 0) {
-        return 0;
-      }
+      if (this.totalTasks === 0) return 0;
       return Math.round((this.completedCount / this.totalTasks) * 100);
     }
   },
@@ -72,7 +62,6 @@ export const useTaskStore = defineStore('taskStore', {
     addTask(taskData: TaskFormModel): number {
       const id = Date.now();
       const createdAt = formatCreatedAtDate(new Date());
-
       const task: Task = {
         id,
         title: taskData.title,
@@ -83,46 +72,36 @@ export const useTaskStore = defineStore('taskStore', {
         completed: taskData.completed,
         createdAt
       };
-
       this.tasks.push(task);
+      this.persistTasks();
       return id;
     },
     updateTask(taskId: number, taskData: TaskFormModel): void {
       const taskIndex = this.tasks.findIndex((task: Task): boolean => task.id === taskId);
-      if (taskIndex === -1) {
-        return;
-      }
-
-      const previousTask = this.tasks[taskIndex];
+      if (taskIndex === -1) return;
       this.tasks[taskIndex] = {
-        ...previousTask,
-        title: taskData.title,
-        description: taskData.description,
-        category: taskData.category,
-        priority: taskData.priority,
-        deadline: taskData.deadline,
-        completed: taskData.completed
+        ...this.tasks[taskIndex],
+        ...taskData
       };
+      this.persistTasks();
     },
     deleteTask(taskId: number): void {
       this.tasks = this.tasks.filter((task: Task): boolean => task.id !== taskId);
+      this.persistTasks();
     },
     toggleTaskCompletion(taskId: number): void {
       const task = this.tasks.find((currentTask: Task): boolean => currentTask.id === taskId);
-      if (!task) {
-        return;
+      if (task) {
+        task.completed = !task.completed;
+        this.persistTasks();
       }
-      task.completed = !task.completed;
     },
     getTaskById(taskId: number): Task | undefined {
       return this.tasks.find((task: Task): boolean => task.id === taskId);
     },
     loadTasksFromStorage(): void {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) {
-        return;
-      }
-
+      if (!raw) return;
       try {
         this.tasks = JSON.parse(raw) as Task[];
       } catch {
