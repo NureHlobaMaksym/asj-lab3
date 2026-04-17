@@ -1,0 +1,45 @@
+.task-list-view {
+  display: grid;
+  gap: 12px;
+}
+
+.task-list-view__controls {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.task-list-view__toolbar {
+  flex-shrink: 0;
+}
+
+.task-list-view__search {
+  width: 100%;
+  min-height: 46px;
+  border: 1px solid #565651;
+  border-radius: 12px;
+  background: #32322f;
+  color: #f0efea;
+  padding: 11px 14px;
+  font-size: 14px;
+  outline: none;
+}
+
+.task-list-view__search:focus {
+  border-color: #76766f;
+  box-shadow: 0 0 0 2px rgb(118 118 111 / 20%);
+}
+
+.task-list-view__search::placeholder {
+  color: #97978d;
+}
+
+@media (max-width: 900px) {
+  .task-list-view__controls {
+    flex-direction: column-reverse;
+  }
+
+  .task-list-view__toolbar {
+    width: 100%;
+  }
+}

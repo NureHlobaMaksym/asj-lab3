@@ -1,0 +1,23 @@
+.task-list {
+  margin-top: 14px;
+  border-radius: 14px;
+  border: 1px solid #4d4d48;
+  background: #31312e;
+  padding: 0 10px;
+}
+
+.stats-list {
+  border: 1px solid #3a3c41;
+  border-radius: 14px;
+  background: #212326;
+  padding: 0 12px;
+}
+
+.task-list__empty {
+  border: 1px dashed #3d455f;
+  border-radius: 12px;
+  color: #9da2b6;
+  margin: 14px 0;
+  padding: 26px 20px;
+  text-align: center;
+}

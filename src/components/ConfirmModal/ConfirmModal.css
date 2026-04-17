@@ -1,0 +1,43 @@
+.confirm-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 25;
+  display: grid;
+  place-items: center;
+}
+
+.confirm-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgb(12 12 13 / 62%);
+  backdrop-filter: blur(1px);
+}
+
+.confirm-modal__content {
+  position: relative;
+  z-index: 1;
+  width: min(420px, calc(100% - 32px));
+  border-radius: 14px;
+  border: 1px solid #4a4d56;
+  background: #2a2c31;
+  padding: 20px;
+  display: grid;
+  gap: 12px;
+}
+
+.confirm-modal__content h3 {
+  margin: 0;
+  color: #f2f4ff;
+}
+
+.confirm-modal__content p {
+  margin: 0;
+  color: #b8bbc8;
+}
+
+.confirm-modal__actions {
+  margin-top: 8px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}

@@ -1,0 +1,34 @@
+.stats-card {
+    border: 1px solid #3a3c41;
+    border-radius: 16px;
+    background: #232427;
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.stats-card strong {
+    font-size: 46px;
+    font-weight: 700;
+    line-height: 1;
+    color: #eceef7;
+}
+
+.stats-card span {
+    color: #b9bbc4;
+    font-size: 14px;
+}
+
+.stats-card--active strong {
+    color: #21bc9f;
+}
+
+.stats-card--done strong {
+    color: #645ce2;
+}
+
+.stats-card--overdue strong {
+    color: #d63745;
+}

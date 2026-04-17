@@ -1,0 +1,117 @@
+.app-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4px;
+}
+
+.app-panel {
+  border: 1px solid #4b4b48;
+  border-radius: 8px;
+  background: #373734;
+  overflow: hidden;
+}
+
+.app-header {
+  padding: 18px 16px;
+  border-bottom: 1px solid #4b4b48;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #f0efea;
+}
+
+.app-nav {
+  display: flex;
+  gap: 30px;
+}
+
+.app-nav__link {
+  color: #c7c7c2;
+  font-size: 16px;
+  line-height: 1;
+  text-decoration: none;
+  padding: 0 2px 10px;
+  border-bottom: 3px solid transparent;
+}
+
+.app-nav__link--active {
+  color: #6d62df;
+  border-bottom-color: #7a6ef3;
+}
+
+.page-shell {
+  padding: 18px 18px 16px;
+}
+
+.link-button {
+  border: 0;
+  background: transparent;
+  color: #675cc7;
+  font-size: 16px;
+  line-height: 1;
+  padding: 0;
+  cursor: pointer;
+  margin-bottom: 14px;
+}
+
+.link-button:hover {
+  color: #7f74d9;
+}
+
+.empty-state {
+  display: grid;
+  justify-items: start;
+  gap: 12px;
+}
+
+.empty-state h1,
+.empty-state h2 {
+  margin: 0;
+}
+
+.route-fade-enter-active,
+.route-fade-leave-active {
+  transition: opacity 0.18s ease;
+}
+
+.route-fade-enter-from,
+.route-fade-leave-to {
+  opacity: 0;
+}
+
+@media (max-width: 900px) {
+  .app-header {
+    padding: 14px;
+  }
+
+  .app-header h2 {
+    font-size: 17px;
+  }
+
+  .app-nav {
+    gap: 14px;
+  }
+
+  .app-nav__link {
+    font-size: 15px;
+    padding-bottom: 8px;
+  }
+
+  .page-shell {
+    padding: 14px;
+  }
+}
+
+@media (max-width: 620px) {
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}

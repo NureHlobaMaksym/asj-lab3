@@ -1,0 +1,96 @@
+.detail-view {
+  display: grid;
+  gap: 12px;
+}
+
+.detail-view h1 {
+  margin: 0;
+  font-size: 43px;
+  line-height: 1.15;
+  color: #f2f3f8;
+  overflow-wrap: anywhere;
+}
+
+.detail-view__tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.task-chip {
+  border-radius: 999px;
+  background: #d6e1f8;
+  color: #293f5a;
+  padding: 4px 11px;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.task-chip--priority-high {
+  background: #f0e3e5;
+  color: #b74b55;
+}
+
+.task-chip--priority-medium {
+  background: #efe2b8;
+  color: #66521f;
+}
+
+.task-chip--priority-low {
+  background: #d9f0d7;
+  color: #2f6641;
+}
+
+.detail-view__overdue {
+  color: #b73945;
+  font-size: 14px;
+}
+
+.detail-view__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.detail-card {
+  border: 1px solid #3b3f49;
+  border-radius: 12px;
+  background: #252728;
+  padding: 14px 18px;
+}
+
+.detail-card h4 {
+  margin: 0;
+  color: #8f939c;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.detail-card p {
+  margin: 7px 0 0;
+  color: #eceef7;
+  font-size: 17px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.detail-card__deadline {
+  color: #bf303a;
+}
+
+.detail-view__actions {
+  margin-top: 6px;
+  display: flex;
+  gap: 12px;
+}
+
+@media (max-width: 900px) {
+  .detail-view h1 {
+    font-size: 30px;
+  }
+
+  .detail-view__grid {
+    grid-template-columns: 1fr;
+  }
+}
