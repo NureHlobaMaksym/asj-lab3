@@ -22,6 +22,50 @@
   line-height: 1.2;
 }
 
+.progress-panel {
+  border: 1px solid #3a3c41;
+  border-radius: 16px;
+  background: #232427;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.progress-panel__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.progress-panel__meta h3 {
+  margin: 0;
+  color: #eceef7;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.progress-panel__meta strong {
+  color: #21bc9f;
+  font-size: 22px;
+}
+
+.progress-panel__bar {
+  height: 12px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: #30333a;
+}
+
+.progress-panel__fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #21bc9f 0%, #6de8d0 100%);
+  transition: width 0.2s ease;
+}
+
 .stats-section :deep(.stats-list) {
   border-radius: 18px;
   padding: 0 22px;

@@ -5,9 +5,8 @@ import { getTodayDate } from '@/utils/get-today-date.util';
 export const useTaskForm = (emit: TaskFormEmits) => {
   const today = getTodayDate();
 
-  const onTitleInput = (event: Event): void => {
-    const target = event.target as HTMLInputElement;
-    emit(Events.UPDATE_TITLE, target.value);
+  const onTitleInput = (value: string): void => {
+    emit(Events.UPDATE_TITLE, value);
   };
 
   const onCategoryChange = (event: Event): void => {
@@ -20,9 +19,8 @@ export const useTaskForm = (emit: TaskFormEmits) => {
     emit(Events.UPDATE_PRIORITY, target.value);
   };
 
-  const onDeadlineChange = (event: Event): void => {
-    const target = event.target as HTMLInputElement;
-    emit(Events.UPDATE_DEADLINE, target.value);
+  const onDeadlineChange = (value: string): void => {
+    emit(Events.UPDATE_DEADLINE, value);
   };
 
   const onCompletedChange = (event: Event): void => {

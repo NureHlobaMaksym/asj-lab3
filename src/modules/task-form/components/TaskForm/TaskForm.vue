@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import BaseButton from '@/components/BaseButton/BaseButton.vue';
+import BaseInput from '@/components/BaseInput/BaseInput.vue';
 import BaseTextArea from '@/components/BaseTextArea/BaseTextArea.vue';
 import { useTaskForm } from '@/modules/task-form/composables/useTaskForm';
 import type { TaskFormEmits } from '@/modules/task-form/interfaces/task-form-emits.interface';
@@ -24,17 +25,17 @@ const {
 
 <template>
   <form class="task-form" @submit.prevent.stop="onSubmit">
-    <label class="task-form__label">Назва задачі</label>
-    <input
-        class="task-form__input"
-        :class="{ 'task-form__input--error': properties.errors.title.length > 0 }"
-        type="text"
-        :value="properties.model.title"
-        :maxlength="TITLE_MAX_LENGTH"
-        placeholder="Введіть назву задачі"
-        @input="onTitleInput"
+    <BaseInput
+      :model-value="properties.model.title"
+      label="Назва задачі"
+      type="text"
+      placeholder="Введіть назву задачі"
+      :error="properties.errors.title"
+      :max-length="TITLE_MAX_LENGTH"
+      min-value=""
+      :disabled="false"
+      @update:modelValue="onTitleInput"
     />
-    <p class="task-form__error">{{ properties.errors.title }}</p>
 
     <BaseTextArea
         :model-value="properties.model.description"
@@ -67,16 +68,17 @@ const {
 
     <div class="task-form__grid task-form__grid--double">
       <div>
-        <label class="task-form__label">Дедлайн</label>
-        <input
-            class="task-form__input"
-            :class="{ 'task-form__input--error': properties.errors.deadline.length > 0 }"
-            type="date"
-            :value="properties.model.deadline"
-            :min="today"
-            @input="onDeadlineChange"
+        <BaseInput
+          :model-value="properties.model.deadline"
+          label="Дедлайн"
+          type="date"
+          placeholder=""
+          :error="properties.errors.deadline"
+          :max-length="0"
+          :min-value="today"
+          :disabled="false"
+          @update:modelValue="onDeadlineChange"
         />
-        <p class="task-form__error">{{ properties.errors.deadline }}</p>
       </div>
 
       <div>

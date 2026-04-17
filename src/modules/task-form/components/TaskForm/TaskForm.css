@@ -41,21 +41,6 @@
   box-shadow: 0 0 0 2px rgb(118 118 111 / 20%);
 }
 
-.task-form__input--error {
-  border-color: #b94654;
-}
-
-.task-form__input[type='date'] {
-  color-scheme: dark;
-}
-
-.task-form__error {
-  min-height: 16px;
-  margin: 5px 0 0;
-  font-size: 12px;
-  color: #cf6d79;
-}
-
 .task-form__grid {
   display: grid;
   gap: 12px;

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import BaseButton from '@/components/BaseButton/BaseButton.vue';
 import BaseFilters from '@/components/BaseFilters/BaseFilters.vue';
+import BaseInput from '@/components/BaseInput/BaseInput.vue';
 import ConfirmModal from '@/components/ConfirmModal/ConfirmModal.vue';
 import TaskList from '@/modules/task-list/components/TaskList/TaskList.vue';
 import { useTaskListView } from '@/modules/task-list/composables/useTaskListView';
@@ -19,7 +20,7 @@ const {
   onCategoryUpdate,
   onPriorityUpdate,
   onSortUpdate,
-  onSearchInput,
+  onSearchUpdate,
   handleTaskAction,
   showDeleteModal,
   onModalClose,
@@ -47,12 +48,16 @@ const {
       </div>
     </div>
 
-    <input
-      class="task-list-view__search"
+    <BaseInput
+      :model-value="searchQuery"
+      label="Пошук задачі"
       type="text"
-      :value="searchQuery"
       placeholder="Пошук за назвою задачі"
-      @input="onSearchInput"
+      error=""
+      :max-length="0"
+      min-value=""
+      :disabled="false"
+      @[events.UPDATE_MODEL_VALUE]="onSearchUpdate"
     />
 
     <TaskList :tasks="filteredTasks" empty-text="Наразі задач немає" :variant="events.FULL" @[events.ACTION]="handleTaskAction" />

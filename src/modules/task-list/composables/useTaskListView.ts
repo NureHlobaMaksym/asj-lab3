@@ -68,9 +68,8 @@ export const useTaskListView = () => {
     selectedSort.value = value;
   };
 
-  const onSearchInput = (event: Event): void => {
-    const target = event.target as HTMLInputElement;
-    searchQuery.value = target.value;
+  const onSearchUpdate = (value: string): void => {
+    searchQuery.value = value;
   };
 
   const handleTaskAction = (action: Events, id: number): void => {
@@ -115,7 +114,7 @@ export const useTaskListView = () => {
     onCategoryUpdate,
     onPriorityUpdate,
     onSortUpdate,
-    onSearchInput,
+    onSearchUpdate,
     handleTaskAction,
     showDeleteModal,
     onModalClose,

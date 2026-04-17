@@ -16,6 +16,16 @@ const { taskStore, handleAction, events, compactVariant } = useStatsView();
       <StatsCard :count="taskStore.overdueCount" label="Прострочено" variant="overdue" />
     </div>
 
+    <article class="progress-panel">
+      <div class="progress-panel__meta">
+        <h3>Прогрес виконання</h3>
+        <strong>{{ taskStore.completionProgress }}%</strong>
+      </div>
+      <div class="progress-panel__bar">
+        <span class="progress-panel__fill" :style="{ width: `${taskStore.completionProgress}%` }" />
+      </div>
+    </article>
+
     <article class="stats-section">
       <h3>Найближчі дедлайни (наступні 3 дні)</h3>
       <TaskList
